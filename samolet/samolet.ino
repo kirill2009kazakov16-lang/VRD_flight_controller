@@ -1,15 +1,12 @@
-
 #include <Wire.h>
 #include <Servo.h>
 #include <MPU6050_tockn.h>
-
 
 #define ELEVATOR_PIN 3     // Руль высоты
 #define RUDDER_PIN 2       // Руль направления
 #define THROTTLE_PIN 9     // ESC мотора
 #define STATUS_LED 13
 #define BUZZER_PIN 10
-
 
 #define ELEVATOR_MIN 60    // Минимальный угол руля высоты
 #define ELEVATOR_MAX 120   // Максимальный угол руля высоты
