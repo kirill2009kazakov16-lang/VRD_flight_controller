@@ -1647,7 +1647,7 @@ class PostFlightAnalysis:
         ax8.set_facecolor(DARK_BLUE_NORM)
         ax8.set_title('ЭФФЕКТИВНОСТЬ УПРАВЛЕНИЯ', fontsize=12, color='white')
 
-        # Рассчитываем метрики
+        
         pitch_rmse = np.sqrt(np.mean(np.array(self.rocket.control_history['pitch_error']) ** 2))
         yaw_rmse = np.sqrt(np.mean(np.array(self.rocket.control_history['yaw_error']) ** 2))
         roll_rmse = np.sqrt(np.mean(np.array(self.rocket.control_history['roll_error']) ** 2))
@@ -1668,7 +1668,7 @@ class PostFlightAnalysis:
 
         plt.tight_layout(pad=3.0)
 
-        # Сохраняем графики
+        
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         fig1.savefig(f'control_analysis_1_{timestamp}.png', dpi=150, facecolor=DARK_BLUE_NORM)
         fig2.savefig(f'control_analysis_2_{timestamp}.png', dpi=150, facecolor=DARK_BLUE_NORM)
@@ -1681,17 +1681,17 @@ class PostFlightAnalysis:
         plt.close('all')
 
     def print_control_statistics(self):
-        """Вывод статистики управления"""
-        print("\n📈 СТАТИСТИКА УПРАВЛЕНИЯ:")
+        
+        print("\nStats control:")
         print("-" * 60)
 
-        # Статистика ошибок
+        
         pitch_errors = self.rocket.control_history['pitch_error']
         yaw_errors = self.rocket.control_history['yaw_error']
         roll_errors = self.rocket.control_history['roll_error']
 
         if len(pitch_errors) > 0:
-            print("\n📊 ОШИБКИ СТАБИЛИЗАЦИИ:")
+            print("\nError stab:")
             print(f"{'Канал':<12} {'Макс.':<8} {'Мин.':<8} {'Сред.':<8} {'СКО':<8}")
             print("-" * 44)
 
@@ -1705,13 +1705,13 @@ class PostFlightAnalysis:
                 print(f"{name:<12} {max_err:>7.2f}° {min_err:>7.2f}° "
                       f"{mean_err:>7.2f}° {std_err:>7.2f}°")
 
-        # Статистика управляющих сигналов
+        
         pitch_out = self.rocket.control_history['pitch_output']
         yaw_out = self.rocket.control_history['yaw_output']
         roll_out = self.rocket.control_history['roll_output']
 
         if len(pitch_out) > 0:
-            print("\n🎛 СИГНАЛЫ УПРАВЛЕНИЯ:")
+            print("\nsignals:")
             print(f"{'Канал':<12} {'Сред.':<8} {'Макс.':<8} {'Активность':<12}")
             print("-" * 44)
 
@@ -1724,11 +1724,11 @@ class PostFlightAnalysis:
                 print(f"{name:<12} {avg_out:>7.3f}  {max_out:>7.3f}  "
                       f"{activity:>10.1%}")
 
-        # Эффективность стабилизации
-        print("\n📐 ЭФФЕКТИВНОСТЬ СТАБИЛИЗАЦИИ:")
+       
+        print("\neffectinost:")
 
-        # Время в допуске
-        tolerance = 2.0  # градусы
+        
+        tolerance = 2.0  
         if len(pitch_errors) > 0:
             pitch_in_tol = sum(1 for e in pitch_errors if abs(e) <= tolerance) / len(pitch_errors)
             yaw_in_tol = sum(1 for e in yaw_errors if abs(e) <= tolerance) / len(yaw_errors)
@@ -1739,31 +1739,31 @@ class PostFlightAnalysis:
             print(f"  Рыскание: {yaw_in_tol:>4.1%}")
             print(f"  Крен: {roll_in_tol:>8.1%}")
 
-        # Оценка качества
-        print("\n⭐ ОЦЕНКА СИСТЕМЫ УПРАВЛЕНИЯ:")
+        
+        print("\nSystem is...")
 
-        # Простая оценка
+        
         avg_error = np.mean([np.mean(np.abs(pitch_errors)),
                              np.mean(np.abs(yaw_errors)),
                              np.mean(np.abs(roll_errors))])
 
         if avg_error < 1.0:
-            rating = "ОТЛИЧНО"
+            rating = "good+"
             color_code = "🟢"
         elif avg_error < 3.0:
-            rating = "ХОРОШО"
+            rating = "good-"
             color_code = "🟡"
         elif avg_error < 5.0:
-            rating = "УДОВЛЕТВОРИТЕЛЬНО"
+            rating = "normal"
             color_code = "🟠"
         else:
-            rating = "ТРЕБУЕТ НАСТРОЙКИ"
+            rating = "bad"
             color_code = "🔴"
 
         print(f"{color_code} {rating} (средняя ошибка: {avg_error:.2f}°)")
 
 
-# Основной цикл
+
 def main():
     global rocket
 
@@ -1773,27 +1773,16 @@ def main():
     clock = pygame.time.Clock()
     running = True
 
-    # Основной шрифт
+    
     font = pygame.font.SysFont('Arial', 16)
 
     print("=" * 80)
-    print("🚀 ПРОФЕССИОНАЛЬНЫЙ СИМУЛЯТОР СИСТЕМЫ СТАБИЛИЗАЦИИ САМОЛЕТА-НОСИТЕЛЯ")
-    print("=" * 80)
-    print("\nУПРАВЛЕНИЕ:")
-    print("• Нажмите СТАРТ для запуска (разбег по ВПП -> взлет -> гравитационный разворот)")
-    print("• ПАУЗА для приостановки симуляции")
-    print("• СБРОС для перезапуска")
-    print("• АНАЛИЗ - подробный анализ системы управления")
-    print("• 1x/2x/5x/10x для изменения скорости симуляции")
-    print("\nФАЗЫ ПОЛЕТА:")
-    print("1. Разбег по ВПП (0-10 сек): горизонтально, набор скорости")
-    print("2. Взлет (10-20 сек): подъем носа, отрыв от ВПП")
-    print("3. Набор высоты (20-60 сек): гравитационный разворот")
-    print("4. Выход на орбиту (60+ сек): почти горизонтальный полет")
+    print("🚀 RocetSim")
+
     print("=" * 80)
 
     while running:
-        # Обработка событий
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -1823,17 +1812,17 @@ def main():
                     rocket.show_control_forces = not rocket.show_control_forces
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:  # Левая кнопка
+                if event.button == 1:  
                     control_panel.handle_click(event.pos)
 
-        # Обновление
+        
         rocket.update()
 
-        # Отрисовка
+        
         rocket.draw(screen)
         control_panel.draw(screen)
 
-        # Информация об управлении
+        
         controls_text = [
             "УПРАВЛЕНИЕ: ПРОБЕЛ - пауза, R - сброс, A - анализ, 1/2/5/0 - скорость",
             "T - траектория, P - целевой путь, C - силы управления, ESC - выход"
@@ -1843,13 +1832,13 @@ def main():
             text_surface = font.render(text, True, (200, 200, 200))
             screen.blit(text_surface, (20, HEIGHT - 30 - i * 25))
 
-        # Обновление экрана
+        
         pygame.display.flip()
 
-        # Ограничение FPS
+        
         clock.tick(60)
 
-    # Завершение - показываем итоговый анализ
+    
     if rocket.mission_complete or len(rocket.control_history['time']) > 100:
         print("\n" + "=" * 80)
         print("📊 ЗАВЕРШЕНИЕ СИМУЛЯЦИИ - ИТОГОВЫЙ АНАЛИЗ")
@@ -1858,7 +1847,7 @@ def main():
         analysis = PostFlightAnalysis(rocket)
         analysis.show_control_analysis()
 
-    # Завершение Pygame
+    
     pygame.quit()
 
     print("\n✅ СИМУЛЯЦИЯ ЗАВЕРШЕНА")
