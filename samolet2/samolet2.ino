@@ -44,8 +44,8 @@ struct PID {
 };
 
 
-PID pitchPID = {1.6, 0.05, 0.2, 0, 0, 25, 50};    
-PID yawPID = {1.1, 0.02, 0.1, 0, 0, 20, 30};
+PID pitchPID = {1.8, 0.09, 0.2, 0, 0, 25, 50};    
+PID yawPID = {1.2, 0.05, 0.4, 0, 0, 20, 30};
 
 
 float targetPitch = 0;
