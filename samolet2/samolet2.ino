@@ -235,7 +235,7 @@ void beep(int freq, int duration) {
 }
 
 void preflightCheck() {
-// test 
+// test chech
   for (int pos = 90; pos <= 120; pos += 2) {
     elevatorServo.write(pos);
     delay(30);
@@ -253,7 +253,6 @@ void preflightCheck() {
     delay(30);
   }
   
-  
   for (int pos = 90; pos <= 120; pos += 2) {
     rudderServo.write(pos);
     delay(30);
@@ -270,8 +269,7 @@ void preflightCheck() {
     rudderServo.write(pos);
     delay(30);
   }
-  
-  
+    
   beep(2000, 200);
   delay(300);
   
