@@ -1,5 +1,5 @@
 #простой алгоритмический полетный контроллер
-
+# to rpi 3 model B
 import serial
 import time
 import threading
