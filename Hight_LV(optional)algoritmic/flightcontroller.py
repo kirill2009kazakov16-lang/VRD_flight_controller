@@ -199,7 +199,7 @@ class AlgorithmicFlightController:
     
     def __init__(self, arduino_interface):
         self.arduino = arduino_interface
-        self.name = "ALGORITHMIC"
+        self.name = "ALG"
         
         
         self.Kp = 2.3          
