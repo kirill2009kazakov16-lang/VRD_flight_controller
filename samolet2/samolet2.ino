@@ -44,8 +44,8 @@ struct PID {
 };
 
 
-PID pitchPID = {1.6, 0.05, 0.2, 0, 0, 25, 50};    
-PID yawPID = {1.1, 0.02, 0.1, 0, 0, 20, 30};
+PID pitchPID = {1.8, 0.09, 0.2, 0, 0, 25, 50};    
+PID yawPID = {1.2, 0.05, 0.4, 0, 0, 20, 30};
 
 
 float targetPitch = 0;
@@ -235,7 +235,7 @@ void beep(int freq, int duration) {
 }
 
 void preflightCheck() {
-// test 
+// test chech
   for (int pos = 90; pos <= 120; pos += 2) {
     elevatorServo.write(pos);
     delay(30);
@@ -253,7 +253,6 @@ void preflightCheck() {
     delay(30);
   }
   
-  
   for (int pos = 90; pos <= 120; pos += 2) {
     rudderServo.write(pos);
     delay(30);
@@ -270,8 +269,7 @@ void preflightCheck() {
     rudderServo.write(pos);
     delay(30);
   }
-  
-  
+    
   beep(2000, 200);
   delay(300);
   
