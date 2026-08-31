@@ -1,7 +1,3 @@
-"""
-RL-контроллер для симуляции ракеты
-Использует Proximal Policy Optimization (PPO) из stable-baselines3
-"""
 
 import numpy as np
 import math
@@ -10,15 +6,11 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3.common.callbacks import EvalCallback
 
-# Импортируем вашу модель ракеты
+
 from simulation import AdvancedRocket
 
 
 class RocketEnv(Env):
-    """
-    Среда для обучения RL-агента
-    Агент учится управлять тангажом ракеты
-    """
     
     def __init__(self, rocket=None, max_steps=15000):
         super(RocketEnv, self).__init__()
@@ -48,7 +40,7 @@ class RocketEnv(Env):
         }
     
     def reset(self):
-        """Сброс среды к начальному состоянию"""
+        
         self.rocket.__init__()  # Полный сброс ракеты
         self.step_count = 0
         self.history = {key: [] for key in self.history}
@@ -155,18 +147,13 @@ class RocketEnv(Env):
 
 
 def train_rl_controller(total_timesteps=200000):
-    """
-    Обучение RL-контроллера
-    
-    Args:
-        total_timesteps: Количество шагов обучения
-    """
+   
     print("🚀 Начинаем обучение RL-агента...")
     
     # Создаём среду
     env = DummyVecEnv([lambda: RocketEnv()])
     
-    # Создаём модель PPO
+    
     model = PPO(
         'MlpPolicy',
         env,
